@@ -18,14 +18,14 @@ class Item(models.Model):
         ('used_fair', 'Used - Fair'),
     ]
 
-    # The seller is the user who uploaded the item
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='items')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255) # The PDF calls this 'name', but 'title' is fine too
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     condition = models.CharField(max_length=20, choices=CONDITION_CHOICES, default='used_good')
+    size = models.CharField(max_length=50, blank=True, null=True)  # <--- NEW FIELD
     image = models.ImageField(upload_to='item_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_sold = models.BooleanField(default=False)
