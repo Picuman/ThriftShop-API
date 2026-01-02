@@ -1,6 +1,15 @@
 from rest_framework import generics, permissions
+from rest_framework.permissions import AllowAny
+from django.contrib.auth.models import User
 from .models import Category, Item
-from .serializers import CategorySerializer, ItemSerializer
+from .serializers import CategorySerializer, ItemSerializer, UserRegistrationSerializer
+
+# --- AUTH VIEWS ---
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserRegistrationSerializer
+    permission_classes = [AllowAny]
 
 # --- CATEGORY VIEWS ---
 
